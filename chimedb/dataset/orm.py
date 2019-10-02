@@ -8,7 +8,6 @@ from future.builtins.disabled import *  # noqa  pylint: disable=W0401, W0614
 
 from chimedb.core.orm import base_model, JSONDictField
 
-import orjson as json
 import peewee
 
 # Logging
@@ -46,18 +45,6 @@ class Dataset(base_model):
     state = peewee.ForeignKeyField(DatasetState)
     time = peewee.DateTimeField()
     base_dset = peewee.ForeignKeyField("self", null=True)
-
-
-class DatasetAttachedType(base_model):
-    """
-    Model for datasettypes table.
-
-    Lists which state types are attached to which datasets
-    """
-
-    id = peewee.AutoField(primary_key=True)
-    dataset_id = peewee.ForeignKeyField(Dataset)
-    type = peewee.ForeignKeyField(DatasetStateType)
 
 
 class DatasetCurrentState(base_model):

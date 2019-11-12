@@ -67,7 +67,7 @@ def insert_dataset(entry):
     Parameters
     ----------
     entry : dict
-        A dict containing the fields `ds/state`, `ds/is_root`, `ds/types`, `time`, `hash`.
+        A dict containing the fields `ds/state`, `ds/is_root`, `ds/type`, `time`, `hash`.
     """
     state = DatasetState.get(DatasetState.id == entry["ds"]["state"])
     try:
@@ -80,5 +80,4 @@ def insert_dataset(entry):
             time=datetime.datetime.strptime(entry["time"], TIMESTAMP_FORMAT),
         )
 
-    for state_type in entry["ds"]["types"]:
-        state_type_id, _ = DatasetStateType.get_or_create(name=state_type)
+    state_type_id, _ = DatasetStateType.get_or_create(name=entry["ds"]["type"])

@@ -32,7 +32,7 @@ class DatasetStateType(base_model):
 class DatasetState(base_model):
     """Model for datasetstate table."""
 
-    id = peewee.DecimalField(21, 0, primary_key=True)
+    id = peewee.FixedCharField(max_length=32, primary_key=True)
     type = peewee.ForeignKeyField(DatasetStateType, null=True)
     data = JSONDictField()
 
@@ -40,7 +40,7 @@ class DatasetState(base_model):
 class Dataset(base_model):
     """Model for dataset table."""
 
-    id = peewee.DecimalField(21, 0, primary_key=True)
+    id = peewee.FixedCharField(max_length=32, primary_key=True)
     root = peewee.BooleanField()
     state = peewee.ForeignKeyField(DatasetState)
     time = peewee.DateTimeField()

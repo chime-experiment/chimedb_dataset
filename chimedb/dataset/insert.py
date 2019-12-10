@@ -83,6 +83,7 @@ def insert_dataset(ds_id, base_dset, is_root, state, time):
     try:
         Dataset.get(Dataset.id == ds_id)
     except Dataset.DoesNotExist:
+        Dataset.get(Dataset.id == base_dset)
         Dataset.get_or_create(
             id=ds_id, state=state, root=is_root, time=time, base_dset=base_dset,
         )

@@ -106,3 +106,17 @@ class TestDataset(TestChimeDB):
         # pre-fetch
         dget.index()
         tests()
+
+    def test_get_missing(self):
+        # These don't exist
+        assert dget.Dataset.from_id("42") is None
+        assert dget.DatasetState.from_id("42") is None
+
+        # But these do
+        ds = dget.Dataset.from_id("1337")
+        assert ds is not None
+        assert ds.id == "1337"
+
+        state = dget.DatasetState.from_id("23")
+        assert state is not None
+        assert state.id == "23"

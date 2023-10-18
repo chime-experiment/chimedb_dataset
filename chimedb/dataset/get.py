@@ -105,14 +105,14 @@ class DatasetState(orm.DatasetState):
             try:
                 _logger.debug(f"Loading state {state_id} from database...")
                 if load_data:
-                    _state_cache[state_id] = DatasetState.get(
-                        DatasetState.id == state_id
-                    )
+                    _state_cache[state_id] = DatasetState.get_by_id(state_id)
                 else:
-                    _state_cache[state_id] = DatasetState.select(
-                        DatasetState.type, DatasetState.time
-                    ).get()
-            except orm.DatasetState.DoesNotExist:
+                    _state_cache[state_id] = (
+                        DatasetState.select(DatasetState.type, DatasetState.time)
+                        .where(DatasetState.id == state_id)
+                        .get()
+                    )
+            except DatasetState.DoesNotExist:
                 _logger.warning(f"Could not find state {state_id}.")
                 return None
         return _state_cache[state_id]
@@ -191,8 +191,8 @@ class Dataset(orm.Dataset):
             )
         if ds_id not in _dataset_cache:
             try:
-                _dataset_cache[ds_id] = Dataset.get(Dataset.id == ds_id)
-            except orm.Dataset.DoesNotExist:
+                _dataset_cache[ds_id] = Dataset.get_by_id(ds_id)
+            except Dataset.DoesNotExist:
                 _logger.warning(f"Could not find dataset {ds_id}.")
                 return None
         return _dataset_cache[ds_id]

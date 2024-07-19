@@ -6,12 +6,14 @@ from .insert import insert_dataset, insert_state
 # deprecated
 from .get import get_dataset, get_state
 
+from importlib.metadata import version, PackageNotFoundError
 
-from ._version import get_versions
+try:
+    __version__ = version("chimedb.data_index")
+except PackageNotFoundError:
+    # package is not installed
+    pass
 
-
-__version__ = get_versions()["version"]
-del get_versions
 
 __all__ = [
     "Dataset",

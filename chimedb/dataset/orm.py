@@ -1,4 +1,5 @@
 """Table definitions for the comet datasets and states."""
+
 from chimedb.core.orm import base_model, JSONDictField
 
 import peewee

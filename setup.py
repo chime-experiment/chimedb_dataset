@@ -1,4 +1,5 @@
 """Tables and tools for CHIME datasets and states."""
+
 from setuptools import setup
 
 import versioneer
@@ -16,7 +17,7 @@ setup(
         "peewee >= 3.10",
         "future",
     ],
-    python_requires=">=3.8",
+    python_requires=">=3.9",
     author="CHIME collaboration",
     author_email="rick@phas.ubc.ca",
     description="CHIME dataset (comet) ORM",

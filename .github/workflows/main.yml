@@ -13,37 +13,35 @@ jobs:
 
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v2
+    - uses: actions/checkout@v4
 
-    - name: Set up Python 3.12
-      uses: actions/setup-python@v2
+    - name: Set up Python 3.13
+      uses: actions/setup-python@v5
       with:
-        python-version: "3.12"
+        python-version: "3.13"
 
     - name: Install black
-      run: pip install black flake8
+      run: pip install black ruff
 
     - name: Check code with black
       run: |
         black --check .
 
-    - name: Run flake8
-      # ignore: line too long, variable names, whitespace before ':', line break before
-      # binary operator, comment style
-      run: flake8 --show-source --ignore=E501,E741,E203,W503,E266 chimedb
+    - name: Run ruff
+      run: ruff check .
 
   run-tests:
 
     strategy:
       matrix:
-        python-version: ["3.9", "3.12"]
+        python-version: ["3.10", "3.13"]
 
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v2
+    - uses: actions/checkout@v4
 
     - name: Set up Python ${{ matrix.python-version }}
-      uses: actions/setup-python@v2
+      uses: actions/setup-python@v5
       with:
         python-version: ${{ matrix.python-version }}
 

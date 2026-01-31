@@ -13,10 +13,9 @@ class TestChimeDB(unittest.TestCase):
 
     def setUp(self):
         """Set up chimedb.core for testing with a local dummy DB."""
-        (fd, rcfile) = tempfile.mkstemp(text=True)
+        fd, rcfile = tempfile.mkstemp(text=True)
         with os.fdopen(fd, "a") as rc:
-            rc.write(
-                """\
+            rc.write("""\
             chimedb:
                 db_type:         MySQL
                 db:              test
@@ -26,8 +25,7 @@ class TestChimeDB(unittest.TestCase):
                 passwd_rw:       ""
                 host:            127.0.0.1
                 port:            3306
-            """
-            )
+            """)
 
         # Tell chimedb where the database connection config is
         assert os.path.isfile(rcfile), f"Could not find {rcfile}."
